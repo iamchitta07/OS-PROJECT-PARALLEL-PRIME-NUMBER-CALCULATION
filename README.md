@@ -20,17 +20,20 @@ Show results/plots:
 ## Project Structure
 ```
 .
-├── main.py                 # Main entry point
+├── main.py                # Main entry point
 ├── utils/
 │   ├── __init__.py
 │   ├── getTime.py         # Python wrapper for time measurement
 │   ├── getTime.c          # C implementation for parallel prime calculation with timing
 │   ├── getCPU.py          # Python wrapper for CPU info retrieval
 │   ├── getCPU.c           # C implementation to get logical CPU count
+│   ├── getUserName.py     # Python wrapper for user name info retrieval
+│   ├── getUserName.c      # C implementation to get user name from system
+│   ├── logUserData.py     # prime.txt file writting functionality
 │   └── visualisation.py   # Graph plotting functionality
 ├── outputs/               # Directory for generated graphs
 ├── pyproject.toml         # Python project configuration
-└── README.md             # Readme file
+└── README.md              # Readme file
 ```
 
 ## Requirements
@@ -90,8 +93,10 @@ The program will generate a performance graph at `outputs/username_line_chart.pn
 
 ## How It Works
 1. **CPU Detection**: Queries the system to determine the number of logical CPU cores
-2. **Iterative Testing**: For each core count from 1 to N, executes the prime calculation
-3. **Parallel Computation**: The C function `findPrimesInParallel` divides the range and spawns child processes
-4. **Timing**: Measures wall-clock time using `CLOCK_MONOTONIC`
-5. **Visualization**: Plots results with the optimal configuration highlighted
+2. **User Name Detection**: Queries the system to determine the User Name
+3. **Iterative Testing**: For each core count from 1 to N, executes the prime calculation
+4. **Parallel Computation**: The C function `findPrimesInParallel` divides the range and spawns child processes
+5. **Timing**: Measures wall-clock time using `CLOCK_MONOTONIC`
+6. **Visualization**: Plots results with the optimal configuration highlighted
+7. **Data Saving**: Stores every users data in `outputs/prime.txt` file
 
