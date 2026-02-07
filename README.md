@@ -3,6 +3,14 @@
 ## Overview
 This project analyzes the performance of parallel prime number calculation across different numbers of logical CPU cores. It measures execution time for computing prime numbers in a given range using multi-process parallelization and visualizes the results.
 
+## Problem Statement
+```
+Write a code that accepts integer values of rl & rh and computes the list of prime numbers in that given range and stores them in a file prime.txt. You should write a code that minimizes the overall execution time by creating multiple child processes (say n) which exploit ultiple logical cores of your machine. For a given range say 1000 – 10000 provide the plot of n vs physical execution time.
+
+Show results/plots: 
+(a) for varying ranges say 1000- 10000; 50000-100000, etc. 
+(b) for each range run in atleast 3 machines with different configurations (number of logical processors).
+```
 ## Features
 - **Parallel Processing**: Utilizes multiple child processes to calculate primes in parallel ranges
 - **Performance Analysis**: Measures and compares execution times across 1 to N logical cores
@@ -34,10 +42,17 @@ This project analyzes the performance of parallel prime number calculation acros
 
 ## Installation
 1. Clone or download the project
+   ```bash
+   git clone https://github.com/iamchitta07/OS-PROJECT-PARALLEL-PRIME-NUMBER-CALCULATION.git
+   ```
 2. Ensure Python 3.11+ is installed
+3. Ensure UV is installed
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv add -r requirements.txt
    ```
 
 ## Building C Extensions
@@ -45,26 +60,33 @@ Compile the C libraries before running the project:
 ```bash
 gcc -shared -fPIC -o utils/libtime.so utils/getTime.c
 gcc -shared -fPIC -o utils/libcpu.so utils/getCPU.c
+gcc -shared -fPIC -o utils/libusername.so utils/getUserName.c
 ```
 
 ## Usage
 Run the main program and provide an upper bound for prime number calculation:
 ```bash
-python main.py
+uv run main.py
 ```
 
 ### Example
 ```
-Please Enter Upper Bound of the Prime Numbers: 100000
-Number of Logical Processors Present in the System: [8]
-Cores: [1], Time Taken: [0.012345s]
-Cores: [2], Time Taken: [0.008123s]
+Logged Time: [20:50:44 - 07:02:2026], [chitta] has [28] logical cores, Given Range: [100,1000000]
+Using [1] cores, Time taken: [0.069788s]
+Using [2] cores, Time taken: [0.030623s]
+Using [3] cores, Time taken: [0.024932s]
+Using [4] cores, Time taken: [0.022116s]
+Using [5] cores, Time taken: [0.016377s]
+Using [6] cores, Time taken: [0.018643s]
+Using [7] cores, Time taken: [0.016374s]
+Using [8] cores, Time taken: [0.014263s]
+Using [9] cores, Time taken: [0.013787s]
 ...
-Cores: [8], Time Taken: [0.005678s]
-Minimum Time taken using [8] Cores, Time: [0.005678s]
+Using [28] cores, Time taken: [0.018468s]
+Optimal: Using [12] cores, Minimum Time is Found: [0.012020s]
 ```
 
-The program will generate a performance graph at `outputs/line_chart.png`.
+The program will generate a performance graph at `outputs/username_line_chart.png`. and `prime.txt` Log File.
 
 ## How It Works
 1. **CPU Detection**: Queries the system to determine the number of logical CPU cores
@@ -73,5 +95,3 @@ The program will generate a performance graph at `outputs/line_chart.png`.
 4. **Timing**: Measures wall-clock time using `CLOCK_MONOTONIC`
 5. **Visualization**: Plots results with the optimal configuration highlighted
 
-## Author
-**Chittajit Nath, NIT Durgapur**
