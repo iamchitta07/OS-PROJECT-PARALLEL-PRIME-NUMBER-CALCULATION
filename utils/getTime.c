@@ -15,9 +15,9 @@ bool isPrime(int n) {
     return true;
 }
 
-double findPrimesInParallel(int upperLimit, int N) {
+double findPrimesInParallel(int upperLimit, int lowerLimit, int N) {
     struct timespec start, end;
-    int rangeSize = upperLimit / N;
+    int rangeSize = (upperLimit-lowerLimit) / N;
     
     // Start the timer
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -30,7 +30,7 @@ double findPrimesInParallel(int upperLimit, int N) {
             exit(1);
         } else if (pid == 0) {
             // Child Process logic
-            int startRange = (i * rangeSize) + 1;
+            int startRange = (i * rangeSize) + lowerLimit;
             // Ensure the last child covers the remainder if upperLimit isn't perfectly divisible
             int endRange = (i == N - 1) ? upperLimit : (startRange + rangeSize - 1);
             
