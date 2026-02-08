@@ -7,5 +7,8 @@ def get_user_name()->str:
     lib.getUserName.restype = ctypes.c_char_p
 
     raw_result = lib.getUserName()
-    user_name:str = raw_result.decode('utf-8')
-    return user_name
+    try:
+        raw_result:str = raw_result.decode('utf-8')
+    except:
+        raw_result = input("User name not detected, Pleaser Enter Your User Name: ")
+    return raw_result

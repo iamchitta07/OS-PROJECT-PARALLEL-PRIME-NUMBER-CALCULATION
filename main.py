@@ -15,8 +15,9 @@ def main():
         y.append(time_taken)
 
     min_index = y.index(min(y))
-    logUserData.log_user_data(x, y, getUserName.get_user_name(), logical_cores, min_index, upper_bound, lower_bound)
-    visualisation.plot_graph(x, y, lower_bound, upper_bound, min_index, getUserName.get_user_name())
+    user = getUserName.get_user_name()
+    logUserData.log_user_data(x, y, user, logical_cores, min_index, upper_bound, lower_bound)
+    visualisation.plot_graph(x, y, lower_bound, upper_bound, min_index, user)
 
 if __name__=="__main__":
     main()
